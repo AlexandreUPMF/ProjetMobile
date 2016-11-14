@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MainActivity extends Activity implements SensorEventListener {
 
@@ -22,6 +23,7 @@ public class MainActivity extends Activity implements SensorEventListener {
     private float seuil;
     private int nbPas;
     private boolean passageSeuil;
+    private Date delay;
 
 
     @Override
@@ -35,6 +37,7 @@ public class MainActivity extends Activity implements SensorEventListener {
         seuil = 2.5F;
         nbPas = 0;
         passageSeuil = false;
+        delay = new Date();
     }
 
     @Override
@@ -44,6 +47,8 @@ public class MainActivity extends Activity implements SensorEventListener {
 
     @Override
     public void onSensorChanged(SensorEvent event) {
+
+        // On affiche les valeurs sur x, y et z
         TextView axeX = (TextView) findViewById(R.id.axeX);
         axeX.setText( "" + event.values[0]);
 
@@ -53,8 +58,9 @@ public class MainActivity extends Activity implements SensorEventListener {
         TextView axeZ = (TextView) findViewById(R.id.axeZ);
         axeZ.setText( "" + event.values[2]);
 
+        // On calcul la norme de l'accélération
         float normAccExt = calculNorme(event);
-
+        // On affiche l'accélération
         TextView normAcc = (TextView) findViewById(R.id.normAccExt);
         normAcc.setText( "" + normAccExt);
 
@@ -62,20 +68,24 @@ public class MainActivity extends Activity implements SensorEventListener {
         TextView textSeuil = (TextView) findViewById(R.id.seuil);
         textSeuil.setText("" + this.seuil);
 
+        Date delayUp = new Date();
+
+        // On calcul un delay pour ne compter les pas que toutes les 500ms
+        long diff = delayUp.getTime() - delay.getTime();
+
         if(passageSeuil == false && normAccExt > seuil) {
             passageSeuil = true;
         }
-
-        if(passageSeuil == true && normAccExt < seuil   ) {
+        if(passageSeuil == true && normAccExt < seuil && diff > 500) {
             nbPas++;
             passageSeuil = false;
+
+            // On reinit le delay de prise
+            delay = new Date();
 
             TextView Pas = (TextView) findViewById(R.id.nbPas);
             Pas.setText("" + this.nbPas);
         }
-
-
-
     }
 
     protected void onResume () {
