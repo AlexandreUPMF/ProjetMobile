@@ -20,6 +20,8 @@ public class MainActivity extends Activity implements SensorEventListener {
     private Sensor flash ;
     private ArrayList<Float> tableauPics;
     private float seuil;
+    private int nbPas;
+    private boolean passageSeuil;
 
 
     @Override
@@ -30,7 +32,9 @@ public class MainActivity extends Activity implements SensorEventListener {
         mSensorManager = ( SensorManager ) getSystemService (Context.SENSOR_SERVICE);
         flash = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         tableauPics = new ArrayList<>();
-        seuil = 0;
+        seuil = 5;
+        nbPas = 0;
+        passageSeuil = false;
     }
 
     @Override
@@ -54,23 +58,21 @@ public class MainActivity extends Activity implements SensorEventListener {
         TextView normAcc = (TextView) findViewById(R.id.normAccExt);
         normAcc.setText( "" + normAccExt);
 
-        if(seuil < normAccExt) {
-            tableauPics.add(normAccExt);
-            seuil = normAccExt;
-        }
-        else
-        {
-            TextView tableauPic = (TextView) findViewById(R.id.tableauPic);
-            tableauPic.setText("");
-            for (int i = tableauPics.size() - 1 ; i == tableauPics.size() - 11; i--) {
-                tableauPic.append("" +tableauPics.get(i));
-            }
-        }
-
-
+        // On affiche le seuil
         TextView textSeuil = (TextView) findViewById(R.id.seuil);
         textSeuil.setText("" + this.seuil);
 
+        if(passageSeuil == false && normAccExt > seuil) {
+            passageSeuil = true;
+        }
+
+        if(passageSeuil == true && normAccExt < seuil   ) {
+            nbPas++;
+            passageSeuil = false;
+
+            TextView Pas = (TextView) findViewById(R.id.nbPas);
+            Pas.setText("" + this.nbPas);
+        }
 
 
 
