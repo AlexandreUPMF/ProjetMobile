@@ -100,6 +100,8 @@ public class MainActivity extends Activity implements SensorEventListener, View.
 
     public void ResetNbPas() {
         nbPas = 0;
+        TextView Pas = (TextView) findViewById(R.id.nbPas);
+        Pas.setText("" + this.nbPas);
         delay = new Date();
     }
 
