@@ -9,6 +9,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -38,6 +39,8 @@ public class MainActivity extends Activity implements SensorEventListener {
         nbPas = 0;
         passageSeuil = false;
         delay = new Date();
+
+        Button resetbtn = (Button) findViewById(R.id.resetButton);
     }
 
     @Override
@@ -92,6 +95,11 @@ public class MainActivity extends Activity implements SensorEventListener {
         float normAccExt = (float)(Math.sqrt((x*x) + (y*y) + (z*z)) - 9.8);
 
         return normAccExt;
+    }
+
+    public void ResetNbPas() {
+        nbPas = 0;
+        delay = new Date();
     }
 
 }
