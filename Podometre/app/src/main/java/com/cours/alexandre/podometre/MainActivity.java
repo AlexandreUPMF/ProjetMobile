@@ -22,8 +22,8 @@ public class MainActivity extends Activity implements SensorEventListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mSensorManager = ( SensorManager ) getSystemService (Context.SENSOR_SERVICE) ;
-        flash = mSensorManager.getDefaultSensor (Sensor.TYPE_ACCELEROMETER) ;
+        mSensorManager = ( SensorManager ) getSystemService (Context.SENSOR_SERVICE);
+        flash = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
     }
 
@@ -45,6 +45,8 @@ public class MainActivity extends Activity implements SensorEventListener {
 
         float normAccExt = calculNorme(event);
 
+        TextView normAcc = (TextView) findViewById(R.id.normAccExt);
+        normAcc.setText( "" + normAccExt);
 
     }
 
