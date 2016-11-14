@@ -34,7 +34,7 @@ public class MainActivity extends Activity implements SensorEventListener, View.
 
         mSensorManager = ( SensorManager ) getSystemService (Context.SENSOR_SERVICE);
         flash = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        seuil = 2.65F;
+        seuil = 2.56F;
         nbPas = 0;
         passageSeuil = false;
         delay = new Date();
