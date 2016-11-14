@@ -32,7 +32,7 @@ public class MainActivity extends Activity implements SensorEventListener {
         mSensorManager = ( SensorManager ) getSystemService (Context.SENSOR_SERVICE);
         flash = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         tableauPics = new ArrayList<>();
-        seuil = 2.7F;
+        seuil = 2.5F;
         nbPas = 0;
         passageSeuil = false;
     }
