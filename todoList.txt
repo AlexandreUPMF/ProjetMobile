@@ -1,0 +1,4 @@
+TODO:
+
+- transposer le podomètre en classe inclue par l'activitée.
+- finir le PDR.
