@@ -61,6 +61,7 @@ public class MainActivity extends Activity implements SensorEventListener {
         else
         {
             TextView tableauPic = (TextView) findViewById(R.id.tableauPic);
+            tableauPic.setText("");
             for (int i = tableauPics.size() - 1 ; i == tableauPics.size() - 11; i--) {
                 tableauPic.append("" +tableauPics.get(i));
             }
@@ -77,7 +78,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 
     protected void onResume () {
         super.onResume();
-        mSensorManager.registerListener(this, flash, 500);
+        mSensorManager.registerListener(this, flash, SensorManager.SENSOR_DELAY_GAME);
     }
 
     protected void onPause () {
