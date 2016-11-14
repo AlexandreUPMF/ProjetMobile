@@ -34,7 +34,7 @@ public class MainActivity extends Activity implements SensorEventListener {
         mSensorManager = ( SensorManager ) getSystemService (Context.SENSOR_SERVICE);
         flash = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         tableauPics = new ArrayList<>();
-        seuil = 2.5F;
+        seuil = 2.65F;
         nbPas = 0;
         passageSeuil = false;
         delay = new Date();
@@ -48,26 +48,10 @@ public class MainActivity extends Activity implements SensorEventListener {
     @Override
     public void onSensorChanged(SensorEvent event) {
 
-        // On affiche les valeurs sur x, y et z
-        TextView axeX = (TextView) findViewById(R.id.axeX);
-        axeX.setText( "" + event.values[0]);
-
-        TextView axeY = (TextView) findViewById(R.id.axeY);
-        axeY.setText( "" + event.values[1]);
-
-        TextView axeZ = (TextView) findViewById(R.id.axeZ);
-        axeZ.setText( "" + event.values[2]);
-
         // On calcul la norme de l'accélération
         float normAccExt = calculNorme(event);
-        // On affiche l'accélération
-        TextView normAcc = (TextView) findViewById(R.id.normAccExt);
-        normAcc.setText( "" + normAccExt);
 
-        // On affiche le seuil
-        TextView textSeuil = (TextView) findViewById(R.id.seuil);
-        textSeuil.setText("" + this.seuil);
-
+        // On récupére le temps courrant pour le calcul du delay
         Date delayUp = new Date();
 
         // On calcul un delay pour ne compter les pas que toutes les 500ms
