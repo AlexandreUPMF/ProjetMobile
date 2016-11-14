@@ -9,18 +9,18 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Date;
 
-public class MainActivity extends Activity implements SensorEventListener {
+public class MainActivity extends Activity implements SensorEventListener, View.OnClickListener {
 
 
     private SensorManager mSensorManager;
     private Sensor flash ;
-    private ArrayList<Float> tableauPics;
     private float seuil;
     private int nbPas;
     private boolean passageSeuil;
@@ -34,13 +34,14 @@ public class MainActivity extends Activity implements SensorEventListener {
 
         mSensorManager = ( SensorManager ) getSystemService (Context.SENSOR_SERVICE);
         flash = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        tableauPics = new ArrayList<>();
         seuil = 2.65F;
         nbPas = 0;
         passageSeuil = false;
         delay = new Date();
 
         Button resetbtn = (Button) findViewById(R.id.resetButton);
+        resetbtn.setOnClickListener(this);
+
     }
 
     @Override
@@ -102,4 +103,8 @@ public class MainActivity extends Activity implements SensorEventListener {
         delay = new Date();
     }
 
+    @Override
+    public void onClick(View v) {
+        ResetNbPas();
+    }
 }
