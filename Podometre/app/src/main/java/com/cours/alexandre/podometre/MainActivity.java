@@ -1,7 +1,6 @@
 package com.cours.alexandre.podometre;
 
 import android.app.Activity;
-import android.app.usage.UsageEvents;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
@@ -119,7 +118,7 @@ public class MainActivity extends Activity implements SensorEventListener, View.
 
         if(id == R.id.boussole) {
             // Explicit Intent by specifying its class name
-            Intent i = new Intent(MainActivity.this, Boussole.class);
+            Intent i = new Intent(this, Boussole.class);
 
             // Starts TargetActivity
             startActivity(i);
@@ -127,7 +126,7 @@ public class MainActivity extends Activity implements SensorEventListener, View.
 
         if(id == R.id.pdr) {
             // Explicit Intent by specifying its class name
-            Intent i = new Intent(MainActivity.this, PDR.class);
+            Intent i = new Intent(this, PDR.class);
 
             // Starts TargetActivity
             startActivity(i);

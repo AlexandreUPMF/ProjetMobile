@@ -52,8 +52,6 @@ public class PDR extends Activity  implements SensorEventListener, View.OnClickL
 
         boubou = mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
 
-        Button resetbtn = (Button) findViewById(R.id.resetButton);
-        resetbtn.setOnClickListener(this);
     }
 
     public float[] computeNextStep(float stepSize, float bearing) {
