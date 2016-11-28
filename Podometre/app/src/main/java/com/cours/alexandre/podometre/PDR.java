@@ -97,6 +97,7 @@ public class PDR extends Activity  implements SensorEventListener {
 
     @Override
     public void onSensorChanged(SensorEvent event) {
+
         if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
             // On calcul la norme de l'accélération
             float normAccExt = calculNorme(event);
@@ -121,8 +122,7 @@ public class PDR extends Activity  implements SensorEventListener {
                 Pas.setText("" + this.nbPas);
             }
         }
-
-        if (event.sensor.getType() == Sensor.TYPE_ROTATION_VECTOR) {
+        else if (event.sensor.getType() == Sensor.TYPE_ROTATION_VECTOR) {
             // Transforme la rotation vector en matrice de rotation
             SensorManager.getRotationMatrixFromVector(mRotationMatrixMagnetic, event.values );
 
@@ -141,15 +141,17 @@ public class PDR extends Activity  implements SensorEventListener {
             float Pitchd = (float) (180/Math.PI * mOrientationVals[1]);
             float Rolld = (float) (180/Math.PI * mOrientationVals[2]);
 
-            TextView Yaw = (TextView) findViewById(R.id.textYaw);
+            /*TextView Yaw = (TextView) findViewById(R.id.textYaw);
             Yaw.setText(("Yaw : " + Yawd));
 
             TextView Pitch = (TextView) findViewById(R.id.textPitch);
             Pitch.setText(("Pitch : " + Pitchd));
 
             TextView Roll = (TextView) findViewById(R.id.textRoll);
-            Roll.setText(("Roll : " + Rolld));
+            Roll.setText(("Roll : " + Rolld));*/
         }
+        else
+            return;
     }
 
     protected void onResume () {
