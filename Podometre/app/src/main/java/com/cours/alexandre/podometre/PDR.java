@@ -154,8 +154,8 @@ public class PDR extends Activity  implements SensorEventListener {
 
     protected void onResume () {
         super.onResume();
-        mSensorManager.registerListener(this, flash, SensorManager.SENSOR_DELAY_GAME);
-        mSensorManager.registerListener(this, boubou, SensorManager.SENSOR_DELAY_GAME);
+       // mSensorManager.registerListener(this, flash, SensorManager.SENSOR_DELAY_GAME);
+       // mSensorManager.registerListener(this, boubou, SensorManager.SENSOR_DELAY_GAME);
     }
 
     protected void onPause () {
