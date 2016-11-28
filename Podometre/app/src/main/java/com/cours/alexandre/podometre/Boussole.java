@@ -1,6 +1,7 @@
 package com.cours.alexandre.podometre;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -12,6 +13,9 @@ import android.widget.TextView;
 
 public class Boussole extends Activity implements SensorEventListener {
 
+    private SensorManager mSensorManager;
+    private Sensor boubou ;
+
     private float[] mOrientationVals = new float[3];
 
     private float[] mRotationMatrixMagnetic = new float[16];
@@ -22,6 +26,9 @@ public class Boussole extends Activity implements SensorEventListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_boussole);
+
+        mSensorManager = ( SensorManager ) getSystemService (Context.SENSOR_SERVICE);
+        boubou = mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
 
         Intent intent = getIntent();
 
@@ -64,5 +71,15 @@ public class Boussole extends Activity implements SensorEventListener {
         TextView Roll = (TextView) findViewById(R.id.textRoll);
         Roll.setText(("Roll : " + Rolld));
 
+    }
+
+    protected void onResume () {
+        super.onResume();
+        mSensorManager.registerListener(this, boubou, SensorManager.SENSOR_DELAY_GAME);
+    }
+
+    protected void onPause () {
+        super.onPause();
+        mSensorManager.unregisterListener(this);
     }
 }
