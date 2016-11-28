@@ -1,5 +1,6 @@
 package com.cours.alexandre.podometre;
 
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -20,6 +21,9 @@ public class Boussole extends AppCompatActivity  implements SensorEventListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_boussole);
+
+        Intent intent = getIntent();
+
     }
 
     @Override
