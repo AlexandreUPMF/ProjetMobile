@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import java.util.Date;
 
-public class PDR extends Activity  implements SensorEventListener, View.OnClickListener {
+public class PDR extends Activity  implements SensorEventListener {
 
     private float[] mCurrentLocation;
 
@@ -182,14 +182,6 @@ public class PDR extends Activity  implements SensorEventListener, View.OnClickL
         delay = new Date();
     }
 
-    @Override
-    public void onClick(View v) {
-        int id = v.getId();
-
-        if(id == R.id.resetButton) {
-            ResetNbPas();
-        }
-    }
 
     public void start() {
         this.onResume();
