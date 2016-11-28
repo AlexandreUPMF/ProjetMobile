@@ -1,5 +1,6 @@
 package com.cours.alexandre.podometre;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -9,7 +10,7 @@ import android.opengl.Matrix;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class Boussole extends AppCompatActivity  implements SensorEventListener {
+public class Boussole extends Activity implements SensorEventListener {
 
     private float[] mOrientationVals = new float[3];
 
