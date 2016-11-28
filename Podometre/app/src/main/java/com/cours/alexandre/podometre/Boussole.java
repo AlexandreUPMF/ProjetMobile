@@ -8,6 +8,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.opengl.Matrix;
 import android.os.Bundle;
+import android.widget.TextView;
 
 public class Boussole extends Activity implements SensorEventListener {
 
@@ -47,5 +48,21 @@ public class Boussole extends Activity implements SensorEventListener {
 
         // Transforme la matrice de rotation en une succession de rotations autour de z , y e t x
         SensorManager.getOrientation(mRotationMatrix , mOrientationVals);
+
+
+        // On actualise la vue
+        float Yawd = (float) (180/Math.PI * mOrientationVals[0]);
+        float Pitchd = (float) (180/Math.PI * mOrientationVals[1]);
+        float Rolld = (float) (180/Math.PI * mOrientationVals[2]);
+
+        TextView Yaw = (TextView) findViewById(R.id.textYaw);
+        Yaw.setText(("Yaw : " + Yawd));
+
+        TextView Pitch = (TextView) findViewById(R.id.textPitch);
+        Pitch.setText(("Pitch : " + Pitchd));
+
+        TextView Roll = (TextView) findViewById(R.id.textRoll);
+        Roll.setText(("Roll : " + Rolld));
+
     }
 }

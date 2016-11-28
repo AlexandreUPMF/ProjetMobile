@@ -11,11 +11,34 @@
     tools:context="com.cours.alexandre.podometre.Boussole">
 
     <TextView
-        android:text="Seconde Vue"
+        android:text="Pitch :"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/textPitch"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="61dp"
-        android:id="@+id/textView" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="Yaw :"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textPitch"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="31dp"
+        android:id="@+id/textYaw" />
+
+    <TextView
+        android:text="Roll :"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textYaw"
+        android:layout_toRightOf="@+id/textPitch"
+        android:layout_toEndOf="@+id/textPitch"
+        android:layout_marginTop="22dp"
+        android:id="@+id/textRoll" />
+
 </RelativeLayout>
