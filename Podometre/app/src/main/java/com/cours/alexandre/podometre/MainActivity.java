@@ -43,6 +43,9 @@ public class MainActivity extends Activity implements SensorEventListener, View.
         Button resetbtn = (Button) findViewById(R.id.resetButton);
         resetbtn.setOnClickListener(this);
 
+        Button VueBoussole = (Button) findViewById(R.id.boussole);
+        VueBoussole.setOnClickListener(this);
+
     }
 
     @Override

@@ -7,7 +7,6 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.opengl.Matrix;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 public class Boussole extends Activity implements SensorEventListener {
