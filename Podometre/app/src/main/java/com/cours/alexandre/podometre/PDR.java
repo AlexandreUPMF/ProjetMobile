@@ -26,7 +26,6 @@ public class PDR extends Activity  implements SensorEventListener {
     private boolean passageSeuil;
     private Date delay;
 
-    private SensorManager mBoubouManager;
     private Sensor boubou ;
 
     private float[] mOrientationVals = new float[3];
@@ -51,8 +50,7 @@ public class PDR extends Activity  implements SensorEventListener {
         passageSeuil = false;
         delay = new Date();
 
-        mBoubouManager = ( SensorManager ) getSystemService (Context.SENSOR_SERVICE);
-        boubou = mBoubouManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
+        boubou = mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
 
     }
 
@@ -156,14 +154,12 @@ public class PDR extends Activity  implements SensorEventListener {
 
     protected void onResume () {
         super.onResume();
-        mSensorManager.registerListener(this, flash, SensorManager.SENSOR_DELAY_GAME);
-        mBoubouManager.registerListener(this, boubou, SensorManager.SENSOR_DELAY_GAME);
+        start();
     }
 
     protected void onPause () {
         super.onPause();
-        mSensorManager.unregisterListener(this);
-        mBoubouManager.unregisterListener(this);
+        stop();
     }
 
     public float calculNorme(SensorEvent event) {
@@ -187,10 +183,11 @@ public class PDR extends Activity  implements SensorEventListener {
 
 
     public void start() {
-        this.onResume();
+        mSensorManager.registerListener(this, flash, SensorManager.SENSOR_DELAY_GAME);
+        mSensorManager.registerListener(this, boubou, SensorManager.SENSOR_DELAY_GAME);
     }
 
     public void stop() {
-        this.onPause();
+        mSensorManager.unregisterListener(this);
     }
 }
