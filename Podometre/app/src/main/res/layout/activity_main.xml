@@ -59,9 +59,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/pdr"
+        android:onClick="onClick (MainActivity)"
         android:layout_alignBaseline="@+id/boussole"
         android:layout_alignBottom="@+id/boussole"
-        android:layout_alignRight="@+id/TextInfo"
-        android:layout_alignEnd="@+id/TextInfo" />
+        android:layout_toRightOf="@+id/resetButton"
+        android:layout_toEndOf="@+id/resetButton" />
 
 </RelativeLayout>
