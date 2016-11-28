@@ -183,8 +183,8 @@ public class PDR extends Activity  implements SensorEventListener {
 
 
     public void start() {
-        //mSensorManager.registerListener(this, flash, SensorManager.SENSOR_DELAY_GAME);
-        mSensorManager.registerListener(this, boubou, SensorManager.SENSOR_DELAY_GAME);
+        mSensorManager.registerListener(this, flash, SensorManager.SENSOR_DELAY_GAME);
+       // mSensorManager.registerListener(this, boubou, SensorManager.SENSOR_DELAY_GAME);
     }
 
     public void stop() {
