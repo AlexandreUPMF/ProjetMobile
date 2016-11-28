@@ -39,6 +39,8 @@ public class PDR extends Activity  implements SensorEventListener, View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pdr);
 
+        Intent intent = getIntent();
+
         mCurrentLocation = new float[2];
 
         mSensorManager = ( SensorManager ) getSystemService (Context.SENSOR_SERVICE);

@@ -43,6 +43,9 @@ public class MainActivity extends Activity implements SensorEventListener, View.
         Button VueBoussole = (Button) findViewById(R.id.boussole);
         VueBoussole.setOnClickListener(this);
 
+        Button VuePDR = (Button) findViewById(R.id.pdr);
+        VuePDR.setOnClickListener(this);
+
     }
 
     @Override
@@ -113,9 +116,18 @@ public class MainActivity extends Activity implements SensorEventListener, View.
         if(id == R.id.resetButton) {
             ResetNbPas();
         }
+
         if(id == R.id.boussole) {
             // Explicit Intent by specifying its class name
             Intent i = new Intent(MainActivity.this, Boussole.class);
+
+            // Starts TargetActivity
+            startActivity(i);
+        }
+
+        if(id == R.id.pdr) {
+            // Explicit Intent by specifying its class name
+            Intent i = new Intent(MainActivity.this, PDR.class);
 
             // Starts TargetActivity
             startActivity(i);
