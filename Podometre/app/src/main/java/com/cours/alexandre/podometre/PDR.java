@@ -109,10 +109,10 @@ public class PDR extends Activity  implements SensorEventListener, View.OnClickL
             // On calcul un delay pour ne compter les pas que toutes les 500ms
             long diff = delayUp.getTime() - delay.getTime();
 
-            if(passageSeuil == false && normAccExt > seuil) {
+            if(!passageSeuil && normAccExt > seuil) {
                 passageSeuil = true;
             }
-            if(passageSeuil == true && normAccExt < seuil && diff > 500) {
+            if(passageSeuil && normAccExt < seuil && diff > 500) {
                 nbPas++;
                 passageSeuil = false;
 
