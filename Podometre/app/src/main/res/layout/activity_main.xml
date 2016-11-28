@@ -43,4 +43,15 @@
         android:id="@+id/resetButton"
         android:onClick="ResetNbPas()" />
 
+    <Button
+        android:text="boussole"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/resetButton"
+        android:layout_alignStart="@+id/resetButton"
+        android:layout_marginBottom="66dp"
+        android:id="@+id/boussole"
+        android:onClick="onClick (MainActivity)" />
+
 </RelativeLayout>

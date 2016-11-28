@@ -3,6 +3,7 @@ package com.cours.alexandre.podometre;
 import android.app.Activity;
 import android.app.usage.UsageEvents;
 import android.content.Context;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -107,6 +108,17 @@ public class MainActivity extends Activity implements SensorEventListener, View.
 
     @Override
     public void onClick(View v) {
-        ResetNbPas();
+        int id = v.getId();
+
+        if(id == R.id.resetButton) {
+            ResetNbPas();
+        }
+        if(id == R.id.boussole) {
+            // Explicit Intent by specifying its class name
+            Intent i = new Intent(MainActivity.this, Boussole.class);
+
+            // Starts TargetActivity
+            startActivity(i);
+        }
     }
 }
