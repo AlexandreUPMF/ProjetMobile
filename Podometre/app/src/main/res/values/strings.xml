@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Podometre</string>
+    <string name="access_token">sk.eyJ1IjoiZmxvcGl6emFsYSIsImEiOiJjaXcxeDhvMjUwMDIyMnRvNG9zbmhvYnozIn0.u5VAVz3TjhzTksSVCMPGwA</string>
 </resources>

@@ -113,6 +113,8 @@ public class PDR extends Activity  implements SensorEventListener {
             }
             if(passageSeuil && normAccExt < seuil && diff > 500) {
                 nbPas++;
+                // On appelle la fonction pour le calcul des pas
+                mCurrentLocation = computeNextStep(0,0);
                 passageSeuil = false;
 
                 // On reinit le delay de prise
