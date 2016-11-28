@@ -1,6 +1,7 @@
 package com.cours.alexandre.podometre;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.mapbox.mapboxsdk.MapboxAccountManager;
@@ -28,6 +29,8 @@ public class map extends Activity {
                 // Customize map with markers, polylines, etc.
             }
         });
+
+        Intent intent = getIntent();
     }
 
     @Override

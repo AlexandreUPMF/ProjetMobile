@@ -28,6 +28,9 @@ public class MainActivity extends Activity implements  View.OnClickListener {
         Button VuePDR = (Button) findViewById(R.id.pdr);
         VuePDR.setOnClickListener(this);
 
+        Button VueMap = (Button) findViewById(R.id.Map);
+        VueMap.setOnClickListener(this);
+
     }
 
     protected void onResume () {
@@ -54,6 +57,14 @@ public class MainActivity extends Activity implements  View.OnClickListener {
         if(id == R.id.pdr) {
             // Explicit Intent by specifying its class name
             Intent i = new Intent(this, PDR.class);
+
+            // Starts TargetActivity
+            startActivity(i);
+        }
+
+        if(id == R.id.Map) {
+            // Explicit Intent by specifying its class name
+            Intent i = new Intent(this, map.class);
 
             // Starts TargetActivity
             startActivity(i);
