@@ -154,7 +154,7 @@ public class PDR extends Activity  implements SensorEventListener {
 
     protected void onResume () {
         super.onResume();
-        start();
+        //start();
     }
 
     protected void onPause () {

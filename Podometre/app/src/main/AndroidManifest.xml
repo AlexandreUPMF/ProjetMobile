@@ -16,7 +16,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Boussole" />
-        <activity android:name=".PDR"></activity>
+        <activity android:name=".PDR" ></activity>
     </application>
 
 </manifest>
