@@ -22,17 +22,20 @@ public class PDR implements SensorEventListener {
     private SensorManager mSensorManager;
     private Sensor flash ;
     private float seuil;
-    private int nbPas;
     private boolean passageSeuil;
     private Date delay;
 
-    private Sensor boubou ;
+    private Boussole mBoussole;
 
-    private float[] mOrientationVals = new float[3];
+    private float mYaw;
 
-    private float[] mRotationMatrixMagnetic = new float[16];
-    private float[] mRotationMatrixMagneticToTrue = new float[16];
-    private float[] mRotationMatrix = new float[16];
+    //private Sensor boubou ;
+
+   // private float[] mOrientationVals = new float[3];
+
+   // private float[] mRotationMatrixMagnetic = new float[16];
+   // private float[] mRotationMatrixMagneticToTrue = new float[16];
+   // private float[] mRotationMatrix = new float[16];
 
     private AccelerometerListener maccelerometerListener;
 
@@ -46,24 +49,21 @@ public class PDR implements SensorEventListener {
         mSensorManager = sensorManager;
         flash = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         seuil = 2.56F;
-        nbPas = 0;
+        mYaw = 0;
         passageSeuil = false;
         delay = new Date();
 
-        boubou = mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
+        //boubou = mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
 
-        /*TextView lat = (TextView) findViewById(R.id.lat);
-        lat.setText(("Latitude : " + mCurrentLocation[0]));
-
-        TextView longi = (TextView) findViewById(R.id.longi);
-        longi.setText(("Longitude : " + mCurrentLocation[1]));*/
+        mBoussole = new Boussole(sensorManager);
+        mBoussole.setBoussoleListener(mBoussoleListener);
 
     }
 
     public float[] computeNextStep(float stepSize, float bearing) {
 
         //bearing = (float) (180/Math.PI * bearing);
-        bearing = (float) Math.toRadians(bearing);
+        //bearing = (float) Math.toRadians(bearing);
 
         float newPosition[] = new float[2];
 
@@ -119,10 +119,9 @@ public class PDR implements SensorEventListener {
                 passageSeuil = true;
             }
             if(passageSeuil && normAccExt < seuil && diff > 500) {
-                nbPas++;
                 // On appelle la fonction pour le calcul des pas
                 float sizepas = (float) 0.7;
-                float bearing = (float) mOrientationVals[0];
+                float bearing = mYaw;
                 mCurrentLocation = computeNextStep(sizepas,bearing);
 
                 //afficher nouvelles coordonnées
@@ -139,7 +138,7 @@ public class PDR implements SensorEventListener {
                 maccelerometerListener.mvtChangedDetected(mCurrentLocation);
             }
         }
-        else if (event.sensor.getType() == Sensor.TYPE_ROTATION_VECTOR) {
+       /* else if (event.sensor.getType() == Sensor.TYPE_ROTATION_VECTOR) {
             // Transforme la rotation vector en matrice de rotation
             SensorManager.getRotationMatrixFromVector(mRotationMatrixMagnetic, event.values );
 
@@ -153,20 +152,7 @@ public class PDR implements SensorEventListener {
             SensorManager.getOrientation(mRotationMatrix , mOrientationVals);
 
 
-            // On actualise la vue
-            float Yawd = (float) (180/Math.PI * mOrientationVals[0]);
-            float Pitchd = (float) (180/Math.PI * mOrientationVals[1]);
-            float Rolld = (float) (180/Math.PI * mOrientationVals[2]);
-
-            /*TextView Yaw = (TextView) findViewById(R.id.textYaw);
-            Yaw.setText(("Yaw : " + Yawd));
-
-            TextView Pitch = (TextView) findViewById(R.id.textPitch);
-            Pitch.setText(("Pitch : " + Pitchd));
-
-            TextView Roll = (TextView) findViewById(R.id.textRoll);
-            Roll.setText(("Roll : " + Rolld));*/
-        }
+        }*/
         else
             return;
     }
@@ -185,7 +171,6 @@ public class PDR implements SensorEventListener {
     }
 
     public void ResetNbPas() {
-        nbPas = 0;
         delay = new Date();
     }
 
@@ -200,10 +185,22 @@ public class PDR implements SensorEventListener {
 
     public void start() {
         mSensorManager.registerListener(this, flash, SensorManager.SENSOR_DELAY_GAME);
-        mSensorManager.registerListener(this, boubou, SensorManager.SENSOR_DELAY_GAME);
+        mBoussole.start();
+       // mSensorManager.registerListener(this, boubou, SensorManager.SENSOR_DELAY_GAME);
     }
 
     public void stop() {
         mSensorManager.unregisterListener(this);
+        mBoussole.stop();
     }
+
+    private Boussole.BoussoleListener mBoussoleListener = new Boussole.BoussoleListener() {
+        @Override
+        public void onBoussoleChanged(float yaw) {
+            mYaw = yaw;
+        }
+    };
+
+
+
 }

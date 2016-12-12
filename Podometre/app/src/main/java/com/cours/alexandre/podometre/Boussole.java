@@ -11,7 +11,7 @@ import android.opengl.Matrix;
 import android.os.Bundle;
 import android.widget.TextView;
 
-public class Boussole extends Activity implements SensorEventListener {
+public class Boussole implements SensorEventListener {
 
     private SensorManager mSensorManager;
     private Sensor boubou ;
@@ -22,15 +22,12 @@ public class Boussole extends Activity implements SensorEventListener {
     private float[] mRotationMatrixMagneticToTrue = new float[16];
     private float[] mRotationMatrix = new float[16];
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_boussole);
+    private BoussoleListener mBoussoleListener;
 
-        mSensorManager = ( SensorManager ) getSystemService (Context.SENSOR_SERVICE);
+    public Boussole (SensorManager sensorManager) {
+
+        mSensorManager = sensorManager;
         boubou = mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
-
-        Intent intent = getIntent();
 
     }
 
@@ -56,30 +53,24 @@ public class Boussole extends Activity implements SensorEventListener {
         // Transforme la matrice de rotation en une succession de rotations autour de z , y e t x
         SensorManager.getOrientation(mRotationMatrix , mOrientationVals);
 
-
-        // On actualise la vue
-        float Yawd = (float) (180/Math.PI * mOrientationVals[0]);
-        float Pitchd = (float) (180/Math.PI * mOrientationVals[1]);
-        float Rolld = (float) (180/Math.PI * mOrientationVals[2]);
-
-        TextView Yaw = (TextView) findViewById(R.id.textYaw);
-        Yaw.setText(("Yaw : " + Yawd));
-
-        TextView Pitch = (TextView) findViewById(R.id.textPitch);
-        Pitch.setText(("Pitch : " + Pitchd));
-
-        TextView Roll = (TextView) findViewById(R.id.textRoll);
-        Roll.setText(("Roll : " + Rolld));
+        mBoussoleListener.onBoussoleChanged(mOrientationVals[0]);
 
     }
 
-    protected void onResume () {
-        super.onResume();
+    public void start () {
         mSensorManager.registerListener(this, boubou, SensorManager.SENSOR_DELAY_GAME);
     }
 
-    protected void onPause () {
-        super.onPause();
+    public void stop () {
         mSensorManager.unregisterListener(this);
     }
+
+    public void setBoussoleListener (BoussoleListener listener) {
+        mBoussoleListener = listener;
+    }
+
+    public interface BoussoleListener {
+        public void onBoussoleChanged(float yaw);
+    }
+
 }
