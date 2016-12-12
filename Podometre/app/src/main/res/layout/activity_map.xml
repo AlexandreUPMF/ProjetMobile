@@ -21,7 +21,7 @@
         android:layout_alignParentStart="true"
         mapbox:center_latitude="45.19351624574748"
         mapbox:center_longitude="5.773658752441406"
-        mapbox:style_url="@string/style_mapbox_streets"
+        mapbox:style_url="http://taha.inrialpes.fr/shs.json"
         mapbox:tilt="20"
         mapbox:zoom="12"
     />
