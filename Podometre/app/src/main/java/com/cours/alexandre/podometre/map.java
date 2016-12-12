@@ -60,6 +60,8 @@ public class map extends Activity {
                     @Override
                     public void onMapClick(@NonNull LatLng point) {
                         marque.setPosition(new LatLng(point.getLatitude(), point.getLongitude()));
+                        mPDR.setLattitude((float)point.getLatitude());
+                        mPDR.setLongitude((float)point.getLongitude());
                     }
                 });
             }
