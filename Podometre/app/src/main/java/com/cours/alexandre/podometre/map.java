@@ -6,9 +6,11 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 
+import com.google.android.gms.maps.GoogleMap;
 import com.mapbox.mapboxsdk.MapboxAccountManager;
 import com.mapbox.mapboxsdk.annotations.Marker;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
@@ -40,19 +42,28 @@ public class map extends Activity {
 
             @Override
             public void onMapReady(MapboxMap mapboxMap) {
-                markerViewOptions = new MarkerViewOptions()
-                        .position(new LatLng(45.19351624574748, 5.773658752441406));
 
+                if (marque == null) {
+                    markerViewOptions = new MarkerViewOptions()
+                            .position(new LatLng(45.19351624574748, 5.773658752441406));
 
-                mapboxMap.addMarker(markerViewOptions);
+                    mapboxMap.addMarker(markerViewOptions);
 
-               marque = mapboxMap.getMarkers().get(0);
+                    marque = mapboxMap.getMarkers().get(0);
+                }
+
+                mapboxMap.setOnMapClickListener(new MapboxMap.OnMapClickListener() {
+                    @Override
+                    public void onMapClick(@NonNull LatLng point) {
+                        marque.setPosition(new LatLng(point.getLatitude(), point.getLongitude()));
+                    }
+
+                });
+
             }
 
-            public void onMapClick(LatLng arg0)
-            {
-                marque.setPosition(new LatLng(arg0.getLatitude(), arg0.getLongitude()));
-            }
+            //marque.setPosition(new LatLng(latLng.latitude, latLng.longitude));
+
         });
 
         Intent intent = getIntent();
