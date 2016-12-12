@@ -1,21 +1,14 @@
 package com.cours.alexandre.podometre;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 
-import com.google.android.gms.maps.GoogleMap;
 import com.mapbox.mapboxsdk.MapboxAccountManager;
 import com.mapbox.mapboxsdk.annotations.Marker;
-import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.annotations.MarkerViewOptions;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.maps.MapView;
@@ -47,6 +40,7 @@ public class map extends Activity {
             @Override
             public void onMapReady(MapboxMap mapboxMap) {
 
+                // Si le marqueur n'existe pas encore on le créé
                 if (marque == null) {
                     markerViewOptions = new MarkerViewOptions()
                             .position(new LatLng(45.19351624574748, 5.773658752441406));
@@ -56,6 +50,7 @@ public class map extends Activity {
                     marque = mapboxMap.getMarkers().get(0);
                 }
 
+                // Fonction pour le positionnement du marqueur
                 mapboxMap.setOnMapClickListener(new MapboxMap.OnMapClickListener() {
                     @Override
                     public void onMapClick(@NonNull LatLng point) {
@@ -71,8 +66,10 @@ public class map extends Activity {
 
         // On récupère le PDR
         SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        String sizePas = intent.getStringExtra("sizePas");
 
         mPDR = new PDR(sensorManager);
+        mPDR.setSizePas(Float.parseFloat(sizePas));
         mPDR.setAccListener(mAccListener);
 
     }

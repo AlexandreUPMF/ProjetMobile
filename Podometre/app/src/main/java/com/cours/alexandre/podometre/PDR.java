@@ -1,17 +1,9 @@
 package com.cours.alexandre.podometre;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.opengl.Matrix;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 
 import java.util.Date;
 
@@ -29,13 +21,7 @@ public class PDR implements SensorEventListener {
 
     private float mYaw;
 
-    //private Sensor boubou ;
-
-   // private float[] mOrientationVals = new float[3];
-
-   // private float[] mRotationMatrixMagnetic = new float[16];
-   // private float[] mRotationMatrixMagneticToTrue = new float[16];
-   // private float[] mRotationMatrix = new float[16];
+    private float mSizePas;
 
     private AccelerometerListener maccelerometerListener;
 
@@ -53,17 +39,18 @@ public class PDR implements SensorEventListener {
         passageSeuil = false;
         delay = new Date();
 
-        //boubou = mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
+        mSizePas = 0.7F;
 
         mBoussole = new Boussole(sensorManager);
         mBoussole.setBoussoleListener(mBoussoleListener);
 
     }
 
-    public float[] computeNextStep(float stepSize, float bearing) {
+    public void setSizePas(float size) {
+        mSizePas = size;
+    }
 
-        //bearing = (float) (180/Math.PI * bearing);
-        //bearing = (float) Math.toRadians(bearing);
+    public float[] computeNextStep(float stepSize, float bearing) {
 
         float newPosition[] = new float[2];
 
@@ -120,16 +107,10 @@ public class PDR implements SensorEventListener {
             }
             if(passageSeuil && normAccExt < seuil && diff > 500) {
                 // On appelle la fonction pour le calcul des pas
-                float sizepas = (float) 0.7;
+                float sizepas = mSizePas;
                 float bearing = mYaw;
                 mCurrentLocation = computeNextStep(sizepas,bearing);
 
-                //afficher nouvelles coordonnées
-                /*TextView lat = (TextView) findViewById(R.id.lat);
-                lat.setText(("Latitude : " + mCurrentLocation[0]));
-
-                TextView longi = (TextView) findViewById(R.id.longi);
-                longi.setText(("Longitude : " + mCurrentLocation[1]));*/
                 passageSeuil = false;
 
                 // On reinit le delay de prise
@@ -138,23 +119,7 @@ public class PDR implements SensorEventListener {
                 maccelerometerListener.mvtChangedDetected(mCurrentLocation);
             }
         }
-       /* else if (event.sensor.getType() == Sensor.TYPE_ROTATION_VECTOR) {
-            // Transforme la rotation vector en matrice de rotation
-            SensorManager.getRotationMatrixFromVector(mRotationMatrixMagnetic, event.values );
 
-            //Création de la matrice de passage de repère magnétique au repère classique
-            Matrix.setRotateM(mRotationMatrixMagneticToTrue, 0, -1.83f, 0, 0, 1);
-
-            //Change la matrice d'orientation du repère magnétique au repère classique
-            Matrix.multiplyMM(mRotationMatrix, 0, mRotationMatrixMagnetic, 0, mRotationMatrixMagneticToTrue, 0);
-
-            // Transforme la matrice de rotation en une succession de rotations autour de z , y e t x
-            SensorManager.getOrientation(mRotationMatrix , mOrientationVals);
-
-
-        }*/
-        else
-            return;
     }
 
 
@@ -164,14 +129,9 @@ public class PDR implements SensorEventListener {
         float y = event.values[1];
         float z = event.values[2];
 
-
         float normAccExt = (float)(Math.sqrt((x*x) + (y*y) + (z*z)) - 9.8);
 
         return normAccExt;
-    }
-
-    public void ResetNbPas() {
-        delay = new Date();
     }
 
     public void setAccListener(AccelerometerListener listener) {
@@ -186,7 +146,6 @@ public class PDR implements SensorEventListener {
     public void start() {
         mSensorManager.registerListener(this, flash, SensorManager.SENSOR_DELAY_GAME);
         mBoussole.start();
-       // mSensorManager.registerListener(this, boubou, SensorManager.SENSOR_DELAY_GAME);
     }
 
     public void stop() {

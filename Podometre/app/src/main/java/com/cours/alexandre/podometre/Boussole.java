@@ -1,15 +1,10 @@
 package com.cours.alexandre.podometre;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.opengl.Matrix;
-import android.os.Bundle;
-import android.widget.TextView;
 
 public class Boussole implements SensorEventListener {
 

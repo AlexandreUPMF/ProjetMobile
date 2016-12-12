@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app=""
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
@@ -11,68 +12,35 @@
     tools:context="com.cours.alexandre.podometre.MainActivity">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/nbPas"
-        android:layout_marginTop="18dp"
-        android:textSize="24sp"
-        android:textAlignment="center"
-        android:layout_below="@+id/TextInfo"
-        android:layout_centerHorizontal="true"
-        tools:text="0"
-        android:text="0" />
-
-    <TextView
         android:text="Nombre de pas :"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/TextInfo"
         android:layout_marginTop="26dp"
-        tools:text="Nombre de pas :"
-        android:textSize="36sp"
+        tools:text="Définir longueur du pas :"
+        android:textSize="30sp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
-    <Button
-        android:text="Reset"
+    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/nbPas"
+        android:inputType="number"
+        android:ems="10"
+        android:layout_marginTop="35dp"
+        android:id="@+id/longPas"
+        android:layout_below="@+id/TextInfo"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="67dp"
-        android:id="@+id/resetButton"
-        android:onClick="ResetNbPas()" />
+        android:fontFamily="sans-serif" />
 
     <Button
-        android:text="boussole"
+        android:text="Ouvrir la map"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="66dp"
-        android:id="@+id/boussole"
-        android:onClick="onClick (MainActivity)"
-        android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@+id/TextInfo"
-        android:layout_alignStart="@+id/TextInfo" />
-
-    <Button
-        android:text="Pdr"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/pdr"
-        android:onClick="onClick (MainActivity)"
-        android:layout_alignBaseline="@+id/boussole"
-        android:layout_alignBottom="@+id/boussole"
-        android:layout_toRightOf="@+id/resetButton"
-        android:layout_toEndOf="@+id/resetButton" />
-
-    <Button
-        android:text="map"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@+id/resetButton"
-        android:layout_alignStart="@+id/resetButton"
         android:id="@+id/Map"
-        android:onClick="onClick (MainActivity)" />
+        android:onClick="onClick (MainActivity)"
+        android:layout_below="@+id/longPas"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="104dp" />
 
 </RelativeLayout>

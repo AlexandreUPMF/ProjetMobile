@@ -15,18 +15,17 @@ import java.util.Date;
 
 public class MainActivity extends Activity implements  View.OnClickListener {
 
-
+    private float longueurPas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button VueBoussole = (Button) findViewById(R.id.boussole);
-        VueBoussole.setOnClickListener(this);
+        longueurPas = 0.7F;
 
-        Button VuePDR = (Button) findViewById(R.id.pdr);
-        VuePDR.setOnClickListener(this);
+        TextView champLongPas =(TextView) findViewById(R.id.longPas);
+        champLongPas.setText(""+longueurPas);
 
         Button VueMap = (Button) findViewById(R.id.Map);
         VueMap.setOnClickListener(this);
@@ -46,25 +45,10 @@ public class MainActivity extends Activity implements  View.OnClickListener {
     public void onClick(View v) {
         int id = v.getId();
 
-        if(id == R.id.boussole) {
-            // Explicit Intent by specifying its class name
-            Intent i = new Intent(this, Boussole.class);
-
-            // Starts TargetActivity
-            startActivity(i);
-        }
-
-        if(id == R.id.pdr) {
-            // Explicit Intent by specifying its class name
-            Intent i = new Intent(this, PDR.class);
-
-            // Starts TargetActivity
-            startActivity(i);
-        }
-
         if(id == R.id.Map) {
             // Explicit Intent by specifying its class name
             Intent i = new Intent(this, map.class);
+            i.putExtra("sizePas", longueurPas);
 
             // Starts TargetActivity
             startActivity(i);
