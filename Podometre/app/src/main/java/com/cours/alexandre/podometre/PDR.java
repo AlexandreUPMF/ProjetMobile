@@ -54,11 +54,11 @@ public class PDR extends Activity  implements SensorEventListener {
 
         boubou = mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
 
-        TextView lat = (TextView) findViewById(R.id.lat);
+        /*TextView lat = (TextView) findViewById(R.id.lat);
         lat.setText(("Latitude : " + mCurrentLocation[0]));
 
         TextView longi = (TextView) findViewById(R.id.longi);
-        longi.setText(("Longitude : " + mCurrentLocation[1]));
+        longi.setText(("Longitude : " + mCurrentLocation[1]));*/
 
     }
 
@@ -128,11 +128,11 @@ public class PDR extends Activity  implements SensorEventListener {
                 mCurrentLocation = computeNextStep(sizepas,bearing);
 
                 //afficher nouvelles coordonnées
-                TextView lat = (TextView) findViewById(R.id.lat);
+                /*TextView lat = (TextView) findViewById(R.id.lat);
                 lat.setText(("Latitude : " + mCurrentLocation[0]));
 
                 TextView longi = (TextView) findViewById(R.id.longi);
-                longi.setText(("Longitude : " + mCurrentLocation[1]));
+                longi.setText(("Longitude : " + mCurrentLocation[1]));*/
                 passageSeuil = false;
 
                 // On reinit le delay de prise
