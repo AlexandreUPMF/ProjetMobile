@@ -66,7 +66,7 @@ public class map extends Activity {
 
         // On récupère le PDR
         SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        String sizePas = intent.getStringExtra("sizePas");
+        String sizePas = (String) intent.getSerializableExtra("sizePas");
 
         mPDR = new PDR(sensorManager);
         mPDR.setSizePas(Float.parseFloat(sizePas));

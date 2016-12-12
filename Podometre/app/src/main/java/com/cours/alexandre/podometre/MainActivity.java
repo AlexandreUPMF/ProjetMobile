@@ -48,7 +48,7 @@ public class MainActivity extends Activity implements  View.OnClickListener {
         if(id == R.id.Map) {
             // Explicit Intent by specifying its class name
             Intent i = new Intent(this, map.class);
-            i.putExtra("sizePas", longueurPas);
+            i.putExtra("sizePas", ""+longueurPas);
 
             // Starts TargetActivity
             startActivity(i);
