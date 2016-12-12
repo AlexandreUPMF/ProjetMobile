@@ -10,6 +10,10 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 
 import com.mapbox.mapboxsdk.MapboxAccountManager;
+import com.mapbox.mapboxsdk.annotations.Marker;
+import com.mapbox.mapboxsdk.annotations.MarkerOptions;
+import com.mapbox.mapboxsdk.annotations.MarkerViewOptions;
+import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
@@ -18,8 +22,10 @@ public class map extends Activity {
 
     private MapView mapView;
 
+    private Marker marque;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         MapboxAccountManager.start(this, getString(R.string.access_token));
         setContentView(R.layout.activity_map);
@@ -29,9 +35,23 @@ public class map extends Activity {
         mapView.onCreate(savedInstanceState);
 
         mapView.getMapAsync(new OnMapReadyCallback() {
+
+            MarkerViewOptions markerViewOptions;
+
             @Override
             public void onMapReady(MapboxMap mapboxMap) {
-                // Customize map with markers, polylines, etc.
+                markerViewOptions = new MarkerViewOptions()
+                        .position(new LatLng(45.19351624574748, 5.773658752441406));
+
+
+                mapboxMap.addMarker(markerViewOptions);
+
+               marque = mapboxMap.getMarkers().get(0);
+            }
+
+            public void onMapClick(LatLng arg0)
+            {
+                marque.setPosition(new LatLng(arg0.getLatitude(), arg0.getLongitude()));
             }
         });
 
