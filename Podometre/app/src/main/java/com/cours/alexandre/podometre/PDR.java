@@ -42,6 +42,8 @@ public class PDR extends Activity  implements SensorEventListener {
         Intent intent = getIntent();
 
         mCurrentLocation = new float[2];
+        mCurrentLocation[0]=(float) 45.1927;
+        mCurrentLocation[0]=(float) 5.7737;
 
         mSensorManager = ( SensorManager ) getSystemService (Context.SENSOR_SERVICE);
         flash = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -56,20 +58,21 @@ public class PDR extends Activity  implements SensorEventListener {
 
     public float[] computeNextStep(float stepSize, float bearing) {
 
-        bearing = (float) (180/Math.PI * bearing);
+        //bearing = (float) (180/Math.PI * bearing);
+        bearing = (float) Math.toRadians(bearing);
 
         float newPosition[] = new float[2];
 
         int R = 6371000;
 
-        float latitude = (float) Math.asin( Math.sin(this.getLatitude())*Math.cos(stepSize/R) +
-                Math.cos(this.getLatitude())*Math.sin(stepSize/R)*Math.cos(bearing) );
+        float latitude = (float) Math.asin( Math.sin(Math.toRadians(this.getLatitude()))*Math.cos(stepSize/R) +
+                Math.cos(Math.toRadians(this.getLatitude()))*Math.sin(stepSize/R)*Math.cos(bearing) );
 
-        float longitude = (float) (this.getLongitude() + Math.atan2(Math.sin(bearing)*Math.sin(stepSize/R)*Math.cos(this.getLatitude()),
-                Math.cos(stepSize/R)-Math.sin(this.getLatitude())*Math.sin(latitude)));
+        float longitude = (float) (Math.toRadians(this.getLongitude()) + Math.atan2(Math.sin(bearing)*Math.sin(stepSize/R)*Math.cos(Math.toRadians(this.getLatitude())),
+                Math.cos(stepSize/R)-Math.sin(Math.toRadians(this.getLatitude()))*Math.sin(latitude)));
 
-        newPosition[0] = latitude;
-        newPosition[1] = longitude;
+        newPosition[0] = (float) Math.toDegrees(latitude);
+        newPosition[1] = (float) Math.toDegrees(longitude);
 
         return newPosition;
     }
@@ -114,14 +117,20 @@ public class PDR extends Activity  implements SensorEventListener {
             if(passageSeuil && normAccExt < seuil && diff > 500) {
                 nbPas++;
                 // On appelle la fonction pour le calcul des pas
-                mCurrentLocation = computeNextStep(0,0);
+                float sizepas = (float) 0.7;
+                float bearing = (float) mOrientationVals[0];
+                mCurrentLocation = computeNextStep(sizepas,bearing);
+
+                //afficher nouvelles coordonnées
+                TextView lat = (TextView) findViewById(R.id.lat);
+                lat.setText(("Latitude : " + mCurrentLocation[0]));
+
+                TextView longi = (TextView) findViewById(R.id.longi);
+                longi.setText(("Longitude : " + mCurrentLocation[1]));
                 passageSeuil = false;
 
                 // On reinit le delay de prise
                 delay = new Date();
-
-                TextView Pas = (TextView) findViewById(R.id.nbPas);
-                Pas.setText("" + this.nbPas);
             }
         }
         else if (event.sensor.getType() == Sensor.TYPE_ROTATION_VECTOR) {
