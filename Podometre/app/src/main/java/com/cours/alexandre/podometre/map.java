@@ -2,8 +2,10 @@ package com.cours.alexandre.podometre;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
@@ -57,16 +59,18 @@ public class map extends Activity {
                     public void onMapClick(@NonNull LatLng point) {
                         marque.setPosition(new LatLng(point.getLatitude(), point.getLongitude()));
                     }
-
                 });
-
             }
-
-            //marque.setPosition(new LatLng(latLng.latitude, latLng.longitude));
-
         });
 
         Intent intent = getIntent();
+
+        // On récupère le PDR
+        SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+
+        PDR mPDR = new PDR(sensorManager);
+        mPDR.setAccListener(mAccListener);
+
     }
 
     @Override
@@ -99,6 +103,13 @@ public class map extends Activity {
         mapView.onDestroy();
     }
 
+
+    private PDR.AccelerometerListener mAccListener = new PDR.AccelerometerListener() {
+        @Override
+        public void mvtChangedDetected(float[] lattLng) {
+            marque.setPosition(new LatLng(lattLng[0], lattLng[1]));
+        }
+    };
 
 
 }

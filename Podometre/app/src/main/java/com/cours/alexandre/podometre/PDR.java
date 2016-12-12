@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import java.util.Date;
 
-public class PDR extends Activity  implements SensorEventListener {
+public class PDR implements SensorEventListener {
 
     private float[] mCurrentLocation;
 
@@ -34,18 +34,16 @@ public class PDR extends Activity  implements SensorEventListener {
     private float[] mRotationMatrixMagneticToTrue = new float[16];
     private float[] mRotationMatrix = new float[16];
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pdr);
+    private AccelerometerListener maccelerometerListener;
 
-        Intent intent = getIntent();
+    public PDR(SensorManager sensorManager) {
+
 
         mCurrentLocation = new float[2];
         mCurrentLocation[0]=(float) 45.1927; //latitude
         mCurrentLocation[1]=(float) 5.7737; //longitude
 
-        mSensorManager = ( SensorManager ) getSystemService (Context.SENSOR_SERVICE);
+        mSensorManager = sensorManager;
         flash = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         seuil = 2.56F;
         nbPas = 0;
@@ -137,6 +135,8 @@ public class PDR extends Activity  implements SensorEventListener {
 
                 // On reinit le delay de prise
                 delay = new Date();
+
+                maccelerometerListener.mvtChangedDetected(mCurrentLocation);
             }
         }
         else if (event.sensor.getType() == Sensor.TYPE_ROTATION_VECTOR) {
@@ -171,15 +171,6 @@ public class PDR extends Activity  implements SensorEventListener {
             return;
     }
 
-    protected void onResume () {
-        super.onResume();
-        start();
-    }
-
-    protected void onPause () {
-        super.onPause();
-        stop();
-    }
 
     public float calculNorme(SensorEvent event) {
 
@@ -195,9 +186,15 @@ public class PDR extends Activity  implements SensorEventListener {
 
     public void ResetNbPas() {
         nbPas = 0;
-        TextView Pas = (TextView) findViewById(R.id.nbPas);
-        Pas.setText("" + this.nbPas);
         delay = new Date();
+    }
+
+    public void setAccListener(AccelerometerListener listener) {
+        maccelerometerListener = listener;
+    }
+
+    public interface AccelerometerListener {
+        public void mvtChangedDetected(float[] lattLng);
     }
 
 
