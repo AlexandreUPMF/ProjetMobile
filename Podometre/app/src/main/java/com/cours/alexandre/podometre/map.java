@@ -28,6 +28,8 @@ public class map extends Activity {
 
     private Marker marque;
 
+    private PDR mPDR;
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +70,7 @@ public class map extends Activity {
         // On récupère le PDR
         SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
-        PDR mPDR = new PDR(sensorManager);
+        mPDR = new PDR(sensorManager);
         mPDR.setAccListener(mAccListener);
 
     }
@@ -77,12 +79,14 @@ public class map extends Activity {
     public void onResume() {
         super.onResume();
         mapView.onResume();
+        mPDR.start();
     }
 
     @Override
     public void onPause() {
         super.onPause();
         mapView.onPause();
+        mPDR.stop();
     }
 
     @Override
