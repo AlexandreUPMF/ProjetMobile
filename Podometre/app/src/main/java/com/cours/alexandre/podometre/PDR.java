@@ -42,8 +42,8 @@ public class PDR extends Activity  implements SensorEventListener {
         Intent intent = getIntent();
 
         mCurrentLocation = new float[2];
-        mCurrentLocation[0]=(float) 45.1927;
-        mCurrentLocation[0]=(float) 5.7737;
+        mCurrentLocation[0]=(float) 45.1927; //latitude
+        mCurrentLocation[1]=(float) 5.7737; //longitude
 
         mSensorManager = ( SensorManager ) getSystemService (Context.SENSOR_SERVICE);
         flash = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -53,6 +53,12 @@ public class PDR extends Activity  implements SensorEventListener {
         delay = new Date();
 
         boubou = mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
+
+        TextView lat = (TextView) findViewById(R.id.lat);
+        lat.setText(("Latitude : " + mCurrentLocation[0]));
+
+        TextView longi = (TextView) findViewById(R.id.longi);
+        longi.setText(("Longitude : " + mCurrentLocation[1]));
 
     }
 
@@ -65,7 +71,7 @@ public class PDR extends Activity  implements SensorEventListener {
 
         int R = 6371000;
 
-        float latitude = (float) Math.asin( Math.sin(Math.toRadians(this.getLatitude()))*Math.cos(stepSize/R) +
+        float latitude = (float) Math.asin( Math.sin( Math.toRadians(this.getLatitude()))*Math.cos(stepSize/R) +
                 Math.cos(Math.toRadians(this.getLatitude()))*Math.sin(stepSize/R)*Math.cos(bearing) );
 
         float longitude = (float) (Math.toRadians(this.getLongitude()) + Math.atan2(Math.sin(bearing)*Math.sin(stepSize/R)*Math.cos(Math.toRadians(this.getLatitude())),
