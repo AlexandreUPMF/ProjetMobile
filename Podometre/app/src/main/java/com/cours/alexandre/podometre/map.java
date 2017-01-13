@@ -32,7 +32,6 @@ public class map extends Activity {
         // Create a mapView
         mapView = (MapView) findViewById(R.id.mapview);
         mapView.onCreate(savedInstanceState);
-
         mapView.getMapAsync(new OnMapReadyCallback() {
 
             MarkerViewOptions markerViewOptions;
@@ -43,8 +42,9 @@ public class map extends Activity {
                 // Si le marqueur n'existe pas encore on le créé
                 if (marque == null) {
                     markerViewOptions = new MarkerViewOptions()
-                            .position(new LatLng(45.19351624574748, 5.773658752441406));
+                            .position(new LatLng(45.1926315, 5.7734283));
 
+                    mapboxMap.setMinZoom(18.0f);
                     mapboxMap.addMarker(markerViewOptions);
 
                     marque = mapboxMap.getMarkers().get(0);
